@@ -69,18 +69,27 @@ void doOperation(Stack *values, Stack *ops){
 
 int main (int argc, char* argv[]){
 	char exp [MAX_LENGTH];
+	char temp [MAX_LENGTH];
 	int i = 0;
 	int temp_sym = 0;
-	
-	while (i<strlen(argv[1])){
-		if (temp_sym > MAX_LENGTH){
-			printf("Too long expression\n");
-			return 0;
+	int length = 0;
+	if (argc < 2){
+		fgets (temp, MAX_LENGTH, stdin); 
+		while (temp[i]!=EOF && (isdigit(temp[i])||(temp[i] == '+')||(temp[i] == '-')||(temp[i] == '*')||(temp[i] == '/')||(temp[i] == '(')||(temp[i] == ')')||(temp[i] == ' '))){
+			if (temp[i] == ' '){i++; continue;}
+			exp[temp_sym++] = temp[i++];
 		}
-		if (argv[1][i] == ' '){i++; continue;}
-		exp[temp_sym++] = argv[1][i++];
+	}else{
+		while (i<strlen(argv[1])){
+			if (temp_sym > MAX_LENGTH){
+				printf("Too long expression\n");
+				return 0;
+			}
+			if (argv[1][i] == ' '){i++; continue;}
+			exp[temp_sym++] = argv[1][i++];
+		}
 	}
-	int length = temp_sym;
+	length = temp_sym;
 	
 	Stack values, ops;
 	values.head = -1;
