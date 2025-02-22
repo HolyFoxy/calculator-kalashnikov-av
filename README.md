@@ -2,12 +2,12 @@
 
 A program written in C. It reads an arithmetic expression from standart input, parses it, and prints the result. The program supports the following operations on integers: *, -, +, /, (, ). Any whitespace characters are allowed in input.
 
-###Algoritm
+### Algoritm
 
 The sorting station (shunting yard) algorithm was chosen as the parsing algorithm.
 The main idea of the algorithm is to convert an input string with an expression from an infix form to a reverse polish notation. Implemented on the basis of a stack storing readed operations.
 
-###Using
+### Using
 
 To compile the program just enter the bath program:
 ```bash
