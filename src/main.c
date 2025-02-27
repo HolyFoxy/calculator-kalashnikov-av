@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <string.h>
 
 #define MAX_LENGTH 1000
 
@@ -27,7 +28,7 @@ char top(Stack *s){
 int pop(Stack *s){
 	if (!isEmpty(s))
 		return s->elems[(s->head)--];
-	return NULL;
+	return 0;
 }
 
 int opRank(char op){
@@ -70,7 +71,7 @@ void doOperation(Stack *values, Stack *ops){
 int main (int argc, char* argv[]){
 	char exp [MAX_LENGTH];
 	char temp [MAX_LENGTH];
-	int i = 0;
+	size_t i = 0;
 	int temp_sym = 0;
 	int length = 0;
 	if (argc < 2){
