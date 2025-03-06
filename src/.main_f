@@ -93,7 +93,7 @@ int opRank(char op)
     }
 }
 
-void doOperation(Stack* values, Stack* ops, bool _float)
+void doOperation(Stack* values, Stack* ops)
 {
     if ((values->head < 1) || (ops->head < 0))
         return;
@@ -114,8 +114,8 @@ void doOperation(Stack* values, Stack* ops, bool _float)
             push_d(values, (a * b));
             break;
         case '/':
-            if ((a <= 0.0001)&&(a >= 0.0001))
-                exit(NULL_DIVISION);
+            if (a == 0)
+                break;
             push_d(values, (b / a));
             break;
         }
@@ -137,7 +137,7 @@ void doOperation(Stack* values, Stack* ops, bool _float)
             break;
         case '/':
             if (a == 0)
-                exit(NULL_DIVISION);
+                break;
             push(values, (b / a));
             break;
         }
@@ -151,24 +151,11 @@ char* deleteSpaces()
     size_t i = 0;
     size_t temp_sym = 0;
 
-    char ch = getchar();
-    do {
-        temp[i++] = ch;
-        ch = getchar();
-    } while (ch != EOF);
-    i = 0;
-    
-    while (temp[i] != EOF && temp[i] != '\0' && (isdigit(temp[i]) || (temp[i] == '+') || (temp[i] == '-') || (temp[i] == '*') || (temp[i] == '/') || (temp[i] == '(') || (temp[i] == ')') || (isspace(temp[i])) || (temp[i] == '\\'))) {
+    fgets(temp, MAX_LENGTH, stdin);
+
+    while (temp[i] != EOF && temp[i] != '\0' && (isdigit(temp[i]) || (temp[i] == '+') || (temp[i] == '-') || (temp[i] == '*') || (temp[i] == '/') || (temp[i] == '(') || (temp[i] == ')') || (isspace(temp[i])))) {
         if (isspace(temp[i])) {
-            if (i > 0 && (temp[i + 1]!= EOF) && isdigit(temp[i - 1]) && isdigit(temp[i + 1]))
-                exit (TOO_MANY_OPERATORS);
             i++;
-            continue;
-        }
-        if (temp[i] == '\\' && (temp[i+1] == 't' || temp[i+1] == 'r' || temp[i+1] == 'f' || temp[i+1] == 'n')) {
-            if (i > 0 && (temp[i + 2]!= EOF) && isdigit(temp[i - 1]) && isdigit(temp[i + 2]))
-                exit (TOO_MANY_OPERATORS);
-            i+=2;
             continue;
         }
         temp_sym++;
@@ -182,19 +169,13 @@ char* deleteSpaces()
     i = 0;
     temp_sym = 0;
 
-    while (temp[i] != EOF && (isdigit(temp[i]) || (temp[i] == '+') || (temp[i] == '-') || (temp[i] == '*') || (temp[i] == '/') || (temp[i] == '(') || (temp[i] == ')') || (isspace(temp[i])) || (temp[i] == '\\'))) {
+    while (temp[i] != EOF && (isdigit(temp[i]) || (temp[i] == '+') || (temp[i] == '-') || (temp[i] == '*') || (temp[i] == '/') || (temp[i] == '(') || (temp[i] == ')') || (isspace(temp[i])))) {
         if (isspace(temp[i])) {
             i++;
             continue;
         }
-        if (temp[i] == '\\' && (temp[i+1] == 't' || temp[i+1] == 'r' || temp[i+1] == 'f' || temp[i+1] == 'n')) {
-            i+=2;
-            continue;
-        }
         exp[temp_sym++] = temp[i++];
     }
-    if (temp[i] != (char)0)
-    	exit(UNKNOWN_CHARACTER);
     return exp;
 }
 
@@ -218,18 +199,13 @@ int calculate(int argc, char* argv[])
         return EMPTY_INPUT;
     }
 
-    bool _float = false;
-
     Stack values, ops;
     values.head = -1;
     ops.head = -1;
 
-    if (argc > 1) {
+    if (argc > 1)
         if (strcmp(argv[1], "--float") == 0)
             _float = true;
-        else
-            return INVALID_ARGUMENT;
-    }
 
     init_stack(&values, _float);
     init_stack(&ops, false);
@@ -257,7 +233,7 @@ int calculate(int argc, char* argv[])
             continue;
         } else if (exp[temp_sym] == ')') {
             while ((!isEmpty(&ops)) && (top(&ops) != '(')) {
-                doOperation(&values, &ops, _float);
+                doOperation(&values, &ops);
             }
             if (isEmpty(&ops))
                 return NOT_PARIED_BRACKED_FOUND;
@@ -270,7 +246,7 @@ int calculate(int argc, char* argv[])
             }
 
             while ((!isEmpty(&ops)) && (opRank(top(&ops)) >= opRank(exp[temp_sym]))) {
-                doOperation(&values, &ops, _float);
+                doOperation(&values, &ops);
             }
             push(&ops, exp[temp_sym++]);
         } else {
@@ -281,7 +257,7 @@ int calculate(int argc, char* argv[])
     while (!isEmpty(&ops)) {
         if (top(&ops) == '(')
             return NOT_PARIED_BRACKED_FOUND;
-        doOperation(&values, &ops, _float);
+        doOperation(&values, &ops);
     }
 
     if (_float) {
@@ -299,9 +275,8 @@ int calculate(int argc, char* argv[])
     return 0;
 }
 
-#ifndef GTEST
 int main(int argc, char* argv[])
 {
-    return calculate(argc, argv);
+    printf("\t%i\n", calculate(argc, argv));
+    return 0;
 }
-#endif
