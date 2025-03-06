@@ -4,4 +4,6 @@
 
 googletest/
 build/
-
+venv/
+__*__
+.pytest_cache
