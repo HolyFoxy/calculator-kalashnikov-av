@@ -55,3 +55,7 @@ make run-unit-tests
 ```bash
 make run-integration-tests
 ```
+
+## Development diary
+### 13.03.25
+The initial configuration of remote developer's machine was performed. Server's folder and main file have been created
