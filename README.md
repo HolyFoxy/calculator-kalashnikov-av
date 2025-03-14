@@ -59,3 +59,6 @@ make run-integration-tests
 ## Development diary
 ### 13.03.25
 The initial configuration of remote developer's machine was performed. Server's folder and main file have been created
+
+### 14.03.25
+Simple server have been created with option to process GET request
