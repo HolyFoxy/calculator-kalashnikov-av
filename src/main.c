@@ -208,11 +208,10 @@ size_t arlen(char* ar)
 
 int calculate(int argc, char* argv[])
 {
-
     char* exp = deleteSpaces();
     size_t length = 0;
     length = arlen(exp);
-
+    
     if (length == 0) {
         printf("Empty input");
         return EMPTY_INPUT;
@@ -281,6 +280,8 @@ int calculate(int argc, char* argv[])
     while (!isEmpty(&ops)) {
         if (top(&ops) == '(')
             return NOT_PARIED_BRACKED_FOUND;
+        if (values.head < 1)
+            return TOO_MANY_OPERATORS;
         doOperation(&values, &ops, _float);
     }
 
