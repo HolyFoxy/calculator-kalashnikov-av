@@ -28,7 +28,6 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(json.dumps(response).encode())
         else:
-            response = {"result": result.stdout}
             self.send_response(500)
             self.end_headers()
 
