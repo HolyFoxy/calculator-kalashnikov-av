@@ -13,7 +13,10 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         content_length = int(self.headers['Content-Length'])
         post_data = self.rfile.read(content_length)
         data = json.loads(post_data)
-        response = {"message": f"Hello, {data['name']}!"}
+        if 'name' in data:
+            response = {"message": f"Hello, {data['name']}!"}
+        else:
+            response = {"message": "Hello, man!"}
         
         self.send_response(200)
         self.send_header('Content-type', 'application/json')
