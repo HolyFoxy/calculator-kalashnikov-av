@@ -61,4 +61,4 @@ make run-integration-tests
 The initial configuration of remote developer's machine was performed. Server's folder and main file have been created
 
 ### 14.03.25
-Simple server have been created with option to process GET request
+Simple server have been created with option to process GET and simple POST request
