@@ -8,6 +8,17 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         self.send_header('Content-type', 'text/html')
         self.end_headers()
         self.wfile.write(b"Hello, World!")
+    
+    def do_POST(self):
+        content_length = int(self.headers['Content-Length'])
+        post_data = self.rfile.read(content_length)
+        data = json.loads(post_data)
+        response = {"message": f"Hello, {data['name']}!"}
+        
+        self.send_response(200)
+        self.send_header('Content-type', 'application/json')
+        self.end_headers()
+        self.wfile.write(json.dumps(response).encode())
 
 def run(server_class=HTTPServer, handler_class=SimpleHTTPRequestHandler, port=8000):
     server_address = ('', port)
