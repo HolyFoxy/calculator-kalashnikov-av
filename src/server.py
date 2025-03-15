@@ -29,7 +29,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
             return
         
         mode_flag = '--float' if is_float_mode else '--int'
-        result = subprocess.run(["./build/app.exe", mode_flag, expression], text=True, capture_output=True)
+        result = subprocess.run("./../build/app.exe", mode_flag, input = expression, text=True, capture_output=True)
         
         if result.returncode == 0:
             response = {"result": result.stdout.strip()}
@@ -40,7 +40,6 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         else:
             self.send_response(500)
             self.end_headers()
-            self.wfile.write(result.stderr.encode())
 
 def run(server_class=HTTPServer, handler_class=SimpleHTTPRequestHandler, port=8000):
     server_address = ('', port)
