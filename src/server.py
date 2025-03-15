@@ -29,7 +29,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
             return
         
         mode_flag = '--float' if is_float_mode else '--int'
-        result = subprocess.run("./../build/app.exe", mode_flag, input = expression, text=True, capture_output=True)
+        result = subprocess.run(["./../build/app.exe", mode_flag], input = expression, text=True, capture_output=True)
         
         if result.returncode == 0:
             response = {"result": result.stdout.strip()}
