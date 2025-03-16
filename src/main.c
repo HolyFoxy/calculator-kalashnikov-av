@@ -226,6 +226,8 @@ int calculate(int argc, char* argv[])
     if (argc > 1) {
         if (strcmp(argv[1], "--float") == 0)
             _float = true;
+        else if (strcmp(argv[1], "--int") == 0)
+            _float = false;
         else
             return INVALID_ARGUMENT;
     }

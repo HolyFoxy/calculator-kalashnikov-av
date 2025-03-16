@@ -73,7 +73,7 @@ run-integration-test: $(BUILD_DIR)/app.exe create-venv tests/integration/simple_
 	@pytest tests/integration/simple_test.py
 
 run-server: $(BUILD_DIR)/app.exe create-venv server/server.py
-	@source $(VEVN_DIR)/bin/activate; server/server.py
+	@source $(VEVN_DIR)/bin/activate; chmod +x ./server/server.py; ./server/server.py
 	
 -include $(APP_OBJS: .o=.d)
 $(APP_BUILD_DIR)/%.o: $(SRC_DIR)/%.c
