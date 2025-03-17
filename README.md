@@ -62,3 +62,18 @@ The initial configuration of remote developer's machine was performed. Server's 
 
 ### 14.03.25
 Simple server have been created with option to process GET and simple POST request
+
+### 15.03.25
+Server was moved to folder "server". Also it was updated to process POST request at the url addresses:
+- for integer mode:
+	- http://localhost:8000/calc
+	- http://localhost:8000/calc?float=false
+- for float mode:
+	- http://localhost:8000/calc?float=true
+
+Makefile was updated too. Now it could make virtual enviroment for server and launch server on localhost:8000 by command:
+```bash
+make run-server
+```
+
+Branch main was merged with branch server
