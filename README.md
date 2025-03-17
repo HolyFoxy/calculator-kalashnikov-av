@@ -77,3 +77,8 @@ make run-server
 ```
 
 Branch main was merged with branch server
+
+### 16.03.25
+Server was updated. Loggin has been added to the server with output to the console
+
+Branch main was merged with branch server
