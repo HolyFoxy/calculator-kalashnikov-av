@@ -24,12 +24,28 @@ def config_structlog():
             set_exc_info,
             TimeStamper(fmt="%Y-%m-%d %H:%M.%S", utc=False),
             ConsoleRenderer(),
-        ]
+        ], 
+	logger_factory=structlog.stdlib.LoggerFactory(), 
+	cache_logger_on_first_use=True, 
     )
+
+def config_JSON_logger(): 
+    fileHandler = logging.FileHandler("1log. json") 
+    fileFormatter = structlog.stdlib.ProcessorFormatter ( 
+        processor=structlog.processors.JSONRenderer(),
+	foreign_pre_chatn=[ 
+	    structlog.processors.TimeStamper(fmt="%Y-%m-%d %H:%M.%S", utc=False), 
+	    structlog.processors.StackInfoRenderer(), 
+	    set_exc_info, 
+	    add_log_level, 
+	], 
+    ) 
+    fileHandler.setFormatter(fileFormatter) 
+    logging.getLogger().addHandler(fileHandler)
 
 # Вызов конфигурации логирования
 config_structlog()
-
+config_JSON_logger() 
 # Создание логгера
 logger = structlog.get_logger()
 
