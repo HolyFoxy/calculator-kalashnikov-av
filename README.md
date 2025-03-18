@@ -82,3 +82,8 @@ Branch main was merged with branch server
 Server was updated. Loggin has been added to the server with output to the console
 
 Branch main was merged with branch server
+
+### 18.03.25
+Server was updated. Loggin has been added to the server with output into the file "log.json"
+
+Branchs were merged with each other
