@@ -87,7 +87,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         
         mode_flag = '--float' if is_float_mode else '--int'
         logger.info("Calculating expression", expression=expression, mode=mode_flag)
-        result = subprocess.run("./../build/app.exe", mode_flag, input = expression, text=True, capture_output=True)
+        result = subprocess.run(["./build/app.exe", mode_flag], input=expression, text=True, capture_output=True)
         
         if result.returncode == 0:
             response = {"result": result.stdout.strip()}
