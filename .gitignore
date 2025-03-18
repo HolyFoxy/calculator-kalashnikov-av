@@ -1,10 +1,10 @@
 *.exe
 *.o
 *.out
+*.json
 
 googletest/
 build/
 venv/
 __*__
 .pytest_cache
-.json
