@@ -54,8 +54,8 @@ class CalculatorApp(QWidget):
 
     def calculate_expression(self):
         expression = self.expression_input.text()
-        url1="http://192.168.43.110:8000/calc"
-        url2="http://192.168.43.110:8000/calc?float=true"
+        url1="http://localhost:8000/calc"
+        url2="http://localhost:8000/calc?float=true"
         try:
             if self.float_mode_checkbox.isChecked():
                 response=requests.post(url2,json={"expression": expression})
