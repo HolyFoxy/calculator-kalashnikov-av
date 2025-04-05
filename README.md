@@ -90,3 +90,6 @@ Branchs were merged with each other
 
 ### 29.03.25
 Client application was written.
+
+### 05.04.25
+Client and Server were modified
