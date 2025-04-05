@@ -58,6 +58,7 @@ create-venv:
 	@sudo apt-get install python3.10-venv
 	@python -m venv $(VENV_DIR)
 	@source $(VEVN_DIR)/bin/activate; pip install -U pytest
+	@pip install -U uvicorn fastapi
 
 run-int: $(BUILD_DIR)/app.exe
 	@$<
@@ -73,7 +74,10 @@ run-integration-test: $(BUILD_DIR)/app.exe create-venv tests/integration/simple_
 	@pytest tests/integration/simple_test.py
 
 run-server: $(BUILD_DIR)/app.exe create-venv server/server.py
-	@source $(VEVN_DIR)/bin/activate; chmod +x ./server/server.py; ./server/server.py
+	@source $(VEVN_DIR)/bin/activate; chmod +x ./server/server.py; uvicorn server.server:app --port 8000 
+	
+run-client: client/client.py
+	@python ./client/client.py
 	
 -include $(APP_OBJS: .o=.d)
 $(APP_BUILD_DIR)/%.o: $(SRC_DIR)/%.c
